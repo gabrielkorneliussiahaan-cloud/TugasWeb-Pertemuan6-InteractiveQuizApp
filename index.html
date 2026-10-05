@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Quiz App — Tugas Rutin 6</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <!--
+      ====================================================================
+      TUGAS RUTIN 6 — INTERACTIVE QUIZ APP
+      Ketentuan yang dipenuhi (lihat juga komentar REQUIREMENT di quiz.js):
+      1. Minimal 5 pertanyaan pilihan ganda -> array `questions` di quiz.js (8 soal)
+      2. Render soal dengan createElement/textContent -> renderQuestion()
+      3. Event delegation untuk pilihan jawaban -> satu listener di #options
+      4. Skor otomatis di akhir quiz -> finishQuiz()
+      5. High score di LocalStorage -> getHighScore()/saveHighScore()
+      6. Navigasi tanpa reload (SPA pattern) -> showScreen()
+      7. Feedback visual benar/salah -> class .option--correct / .option--wrong
+      8. Tombol restart -> restartQuiz()
+
+      BONUS yang dikerjakan:
+      - Timer per soal
+      - Progress bar visual
+      - Kategori soal random (urutan soal diacak tiap mulai kuis)
+      - Animasi transisi antar soal
+      - Dark mode toggle
+      ====================================================================
+    -->
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div>
+          <p class="app-header__eyebrow">Tugas Rutin 6</p>
+          <h1 class="app-header__title">Interactive Quiz App</h1>
+        </div>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+          🌙 <span id="themeLabel">Dark</span>
+        </button>
+      </header>
+
+      <!-- ================= START SCREEN ================= -->
+      <section id="startScreen" class="screen">
+        <div class="card start-card">
+          <p class="start-card__icon">🧠</p>
+          <h2 class="start-card__title">Siap Uji Pengetahuan Web-mu?</h2>
+          <p class="start-card__desc">
+            Ada 8 pertanyaan seputar HTML, CSS, dan JavaScript. Tiap soal
+            punya waktu terbatas, jadi fokus ya!
+          </p>
+          <div class="start-card__stats">
+            <div>
+              <span class="start-card__stat-value" id="highScoreDisplay">0</span>
+              <span class="start-card__stat-label">High Score</span>
+            </div>
+          </div>
+          <button id="startButton" class="btn btn--primary" type="button">
+            Mulai Kuis
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= QUIZ SCREEN ================= -->
+      <section id="quizScreen" class="screen" hidden>
+        <div class="quiz-meta">
+          <span id="questionCounter" class="quiz-meta__counter">Soal 1/8</span>
+          <span id="categoryBadge" class="quiz-meta__badge">Kategori</span>
+        </div>
+
+        <div class="progress-bar" aria-hidden="true">
+          <div id="progressFill" class="progress-bar__fill"></div>
+        </div>
+
+        <div class="timer-bar" aria-hidden="true">
+          <div id="timerFill" class="timer-bar__fill"></div>
+        </div>
+        <p class="timer-label"><span id="timerValue">15</span>s tersisa</p>
+
+        <div id="questionCard" class="card question-card">
+          <h2 id="questionText" class="question-card__text"></h2>
+          <div id="options" class="options"></div>
+        </div>
+      </section>
+
+      <!-- ================= RESULT SCREEN ================= -->
+      <section id="resultScreen" class="screen" hidden>
+        <div class="card result-card">
+          <p class="result-card__icon" id="resultIcon">🎉</p>
+          <h2 class="result-card__title" id="resultTitle">Kuis Selesai!</h2>
+          <p class="result-card__score">
+            <span id="finalScore">0</span> / <span id="finalTotal">8</span>
+          </p>
+          <p class="result-card__message" id="resultMessage"></p>
+          <p class="result-card__highscore" id="newHighScoreNote" hidden>
+            🏆 Rekor baru!
+          </p>
+          <button id="restartButton" class="btn btn--primary" type="button">
+            Ulangi Kuis
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <script src="quiz.js"></script>
+  </body>
+</html>
